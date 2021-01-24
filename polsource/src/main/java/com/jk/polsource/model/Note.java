@@ -52,7 +52,7 @@ public class Note {
     }
 
     @Basic
-    @Column(name = "title", nullable = false, length = 255)
+    @Column(name = "note_title", nullable = false, length = 255)
     public String getTitle() {
         return title;
     }
@@ -82,7 +82,7 @@ public class Note {
     }
 
     @Basic
-    @Column(name = "version", nullable = false)
+    @Column(name = "note_version", nullable = false)
     public int getVersion() {
         return version;
     }
