@@ -27,7 +27,7 @@ public class NotesServiceImpl implements  NotesService {
         List<Note> currentNotes = new ArrayList<Note>();
         Long threadId = 0L;
         for (int i = 0; i<allNotes.size(); i++){
-            if(threadId != allNotes.get(i).getThreadId()){
+            if(!threadId.equals(allNotes.get(i).getThreadId())){
                 currentNotes.add(allNotes.get(i));
                 threadId = allNotes.get(i).getThreadId();
             }

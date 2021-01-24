@@ -2,6 +2,7 @@ package com.jk.polsource.controllers;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.jk.polsource.dto.NewNote;
 import com.jk.polsource.model.Note;
 import com.jk.polsource.model.ResponseObject;
 import com.jk.polsource.notifications.Notification;
@@ -10,11 +11,9 @@ import com.jk.polsource.service.NotesServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -42,6 +41,13 @@ public class NotesController extends BaseController {
             e.printStackTrace();
             return new ResponseEntity<>(ResponseObject.createError(Notification.CURRENT_NOTE_GET_ERROR), HttpStatus.BAD_REQUEST);
         }
+    }
+
+    @PostMapping(value = "/new-note")
+    public ResponseEntity createNote(@Valid @RequestBody NewNote note){
+        Note newlyCreatedNote = new Note(note.getTitle(), note.getContent());
+        this.notesService.save(newlyCreatedNote);
+        return new ResponseEntity<>(ResponseObject.createSuccess(Notification.NOTE_CREATED), HttpStatus.OK);
     }
 
 

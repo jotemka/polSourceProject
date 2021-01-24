@@ -3,10 +3,7 @@ package com.jk.polsource.model;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.Date;
 import java.util.UUID;
 
@@ -46,7 +43,8 @@ public class Note {
     }
 
     @Id
-    @Column(name="id", nullable = false)
+    @Column(name="id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public int getId(){
         return this.id;
     }
