@@ -51,6 +51,10 @@ public class Note {
         return this.id;
     }
 
+    public void setId(int id) {
+        this.id = id;
+    }
+
     @Basic
     @Column(name = "note_title", nullable = false, length = 255)
     public String getTitle() {
@@ -97,15 +101,27 @@ public class Note {
         return created;
     }
 
+    public void setCreated(Date created) {
+        this.created = created;
+    }
+
     @Basic
     @Column(name = "modified", nullable = false)
     public Date getModified() {
         return modified;
     }
 
+    public void setModified(Date modified) {
+        this.modified = modified;
+    }
+
     @Basic
     @Column(name = "thread_id", nullable = false)
     public Long getThreadId() {
         return threadId;
+    }
+
+    public void setThreadId(Long threadId) {
+        this.threadId = threadId;
     }
 }
