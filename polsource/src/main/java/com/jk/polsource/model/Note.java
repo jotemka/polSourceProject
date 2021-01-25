@@ -1,5 +1,6 @@
 package com.jk.polsource.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 
@@ -14,7 +15,9 @@ public class Note {
     private int id;
     private String title;
     private String content;
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
     private Date created;
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
     private Date modified;
     private Boolean isDeleted;
     private Long threadId;
@@ -102,6 +105,7 @@ public class Note {
     public void setCreated(Date created) {
         this.created = created;
     }
+
 
     @Basic
     @Column(name = "modified", nullable = false)
