@@ -8,5 +8,5 @@ public interface NotesService {
     Note findById(int id);
     List<Note> getAll();
     Note getNewestForThread(Long id);
-    void save(Note note);
+    Note save(Note note);
 }

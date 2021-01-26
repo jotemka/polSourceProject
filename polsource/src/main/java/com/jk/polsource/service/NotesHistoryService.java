@@ -7,5 +7,5 @@ import java.util.List;
 public interface NotesHistoryService {
     List<Note> findAllByThreadId(Long threadId);
     Note findById(int id);
-    void save(Note note);
+    Note save(Note note);
 }

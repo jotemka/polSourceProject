@@ -25,7 +25,7 @@ public class NotesHistoryServiceImpl implements NotesHistoryService{
     }
 
     @Override
-    public void save(Note note) {
-        this.notesRepository.save(note);
+    public Note save(Note note) {
+        return this.notesRepository.save(note);
     }
 }
