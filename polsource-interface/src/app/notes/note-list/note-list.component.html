@@ -1,0 +1,13 @@
+<p>note-list works!</p>
+<div *ngIf="(currentNotes | async) as notes; else noteError">
+  <div *ngFor="let note of notes">
+    {{ note.id }}, {{ note.title }}
+  </div>
+</div>
+
+
+<ng-template #noteError>
+  <div>
+    Error while loading list of notes
+  </div>
+</ng-template>
