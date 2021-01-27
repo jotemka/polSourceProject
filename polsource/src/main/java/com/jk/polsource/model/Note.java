@@ -19,10 +19,10 @@ public class Note {
     private String title;
     private String content;
     @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
-    @CreatedDate
+//    @CreatedDate
     private Date created;
     @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
-    @LastModifiedDate
+//    @LastModifiedDate
     private Date modified;
     private Boolean isDeleted;
     private Long threadId;
@@ -32,8 +32,8 @@ public class Note {
     public Note(String title, String content) {
         this.title = title;
         this.content = content;
-//        this.created = new Date();
-//        this.modified = this.created;
+        this.created = new Date();
+        this.modified = this.created;
         this.isDeleted = false;
         this.threadId = UUID.randomUUID().getMostSignificantBits() & Long.valueOf("999999999999");
         this.version = 1;
@@ -44,7 +44,7 @@ public class Note {
         this.title = title;
         this.content = content;
         this.created = created;
-//        this.modified = new Date();
+        this.modified = new Date();
         this.isDeleted = false;
         this.threadId = threadId;
         this.version = version+1;
