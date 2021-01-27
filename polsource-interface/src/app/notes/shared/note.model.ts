@@ -1,6 +1,6 @@
 export class Note {
   id: number = 0;
-  note_title: string = "";
+  title: string = "";
   content: string = "";
   created: string = "";
   modified: string = "";

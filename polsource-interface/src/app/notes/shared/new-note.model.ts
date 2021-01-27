@@ -1,4 +1,4 @@
 export class NewNote {
-  note_title: string = "";
+  title: string = "";
   content: string = "";
 }

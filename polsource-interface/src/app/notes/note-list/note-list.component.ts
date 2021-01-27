@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Observable } from 'rxjs';
 import { NotesService } from 'src/app/notes/services/notes.service';
+import { NoteReadComponent } from '../note-read/note-read.component';
 import { Note } from '../shared/note.model';
 
 @Component({
@@ -22,6 +23,11 @@ export class NoteListComponent implements OnInit {
   ngOnInit(): void {
     // this.getAllCurrentNotes();
     this.currentNotes = this.notesService.getAllCurrentNotes(); 
+  }
+
+  readNote(note: Note) {
+    const modalRef = this.modalService.open(NoteReadComponent);
+    modalRef.componentInstance.setNote(note);
   }
 
   // getAllCurrentNotes() {

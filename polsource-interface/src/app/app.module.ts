@@ -8,17 +8,24 @@ import { NotesHistoryService } from './notes/services/notes-history.service';
 import { HttpClientModule } from '@angular/common/http';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NoteListComponent } from './notes/note-list/note-list.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { NoteCreateComponent } from './notes/note-create/note-create.component';
+import { NotesModule } from './notes/notes.module';
 
 @NgModule({
   declarations: [
     AppComponent,
-    NoteListComponent
+    // NoteListComponent,
+    // NoteCreateComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    NgbModule
+    NgbModule,
+    NotesModule,
+    // FormsModule,
+    // ReactiveFormsModule
   ],
   providers: [
     NotesService,
