@@ -4,6 +4,7 @@ export class Note {
   content: string = "";
   created: string = "";
   modified: string = "";
-  thread_id: string = "";
-  version: number = 0; 
+  threadId: string = "";
+  version: number = 0;
+  deleted: boolean = false;
 }

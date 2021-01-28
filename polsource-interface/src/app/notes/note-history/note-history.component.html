@@ -1,0 +1,44 @@
+<p>note-history works!</p>
+
+<div class="container m-3">
+  <ngb-alert #selfCloseAlert *ngIf="alertMessage" type="danger" (closed)="alertMessage = ''">{{ alertMessage }}</ngb-alert>
+  <div class="row">
+    <button class="btn btn-danger" type="button" [routerLink]="['/current-notes']">Back</button>
+  </div>
+  <br>
+  <div class="card">
+    <div class="card-header">Your current notes</div>
+    <div class="card-body table-responsive">
+      <div *ngIf="(historyNotes | async) as notes; else noteError">
+        <table class="table table-hover table-striped">
+          <thead>
+            <tr>
+              <th>Title</th>
+              <th>Created</th>
+              <th>Last modified</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- <div *ngIf="(currentNotes | async) as notes; else noteError"> -->
+              <tr *ngFor="let note of notes">
+                <td>{{ note.title }}</td>
+                <td>{{ note.created }}</td> 
+                <td>{{ note.modified }}</td>
+                <td>
+                  <button class="btn btn-sm btn-danger" [disabled]="note.deleted" (click)="deleteNote(note)">Delete</button>
+                </td>
+              </tr>
+            <!-- </div> -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #noteError>
+  <div>
+    No notes avaliable
+  </div>
+</ng-template>

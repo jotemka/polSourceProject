@@ -1,6 +1,7 @@
 <!-- <p>note-list works!</p> -->
 
 <div class="container m-3">
+  <ngb-alert #selfCloseAlert *ngIf="alertMessage" type="danger" (closed)="alertMessage = ''">{{ alertMessage }}</ngb-alert>
   <div class="row">
     <button class="btn btn-success" type="button" [routerLink]="['/new-note']">Create new note</button>
   </div>
@@ -8,23 +9,28 @@
   <div class="card">
     <div class="card-header">Your current notes</div>
     <div class="card-body table-responsive">
-      <div *ngIf="(currentNotes | async) as notes; else noteError">
+      <div *ngIf="currentNotes && currentNotes.length; else noteError">
+      <!-- <div *ngIf="(currentNotes | async) as notes; else noteError"> -->
         <table class="table table-hover table-striped">
           <thead>
             <tr>
-              <th>Title</th>
-              <th>Created</th>
-              <th>Last modified</th>
+              <th scope="col" sortable="title" (sort)="onSort($event)">Title</th>
+              <th scope="col" sortable="created" (sort)="onSort($event)">Created</th>
+              <th scope="col" sortable="modified" (sort)="onSort($event)">Last modified</th>
               <th>Actions</th>
             </tr>
           </thead>
           <tbody>
             <!-- <div *ngIf="(currentNotes | async) as notes; else noteError"> -->
-              <tr *ngFor="let note of notes">
+              <tr *ngFor="let note of currentNotes">
                 <td (click)="readNote(note)">{{ note.title }}</td>
                 <td>{{ note.created }}</td> 
                 <td>{{ note.modified }}</td>
-                <td><button class="btn btn-sm btn-primary" >Edit</button><button class="btn btn-sm btn-danger">Delete</button></td>
+                <td>
+                  <button class="btn btn-sm btn-primary" [routerLink]="['/edit-note', note.id]">Edit</button>
+                  <button class="btn btn-sm btn-secondary" [routerLink]="['/note-history', note.threadId]">History</button>
+                  <button class="btn btn-sm btn-danger" (click)="deleteNote(note)">Delete</button>
+                </td>
               </tr>
             <!-- </div> -->
           </tbody>
