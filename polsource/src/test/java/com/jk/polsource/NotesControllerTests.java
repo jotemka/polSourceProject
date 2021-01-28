@@ -68,6 +68,20 @@ public class NotesControllerTests {
     }
 
     @Test
+    public void getAllTest() throws Exception {
+        MvcResult result = mockMvc.perform(get("/notes/all")
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andReturn();
+        ResponseObject response = mapper.readValue(result.getResponse().getContentAsString(), ResponseObject.class);
+        ObjectReader reader = mapper.readerFor(new TypeReference<List<Note>>() {
+        });
+        List<Note> list = reader.readValue(response.getData());
+
+        Assert.assertEquals(5, list.size());
+    }
+
+    @Test
     public void createNoteTest() throws Exception {
         NewNote note = new NewNote("TEST TITLE", "TEST CONTENT");
 
@@ -140,19 +154,5 @@ public class NotesControllerTests {
         Assert.assertEquals(id, retrievedNote.getId());
         Assert.assertEquals(title, retrievedNote.getTitle());
         Assert.assertEquals(content, retrievedNote.getContent());
-    }
-
-    @Test
-    public void getAllTest() throws Exception {
-        MvcResult result = mockMvc.perform(get("/notes/all")
-                .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk())
-                .andReturn();
-        ResponseObject response = mapper.readValue(result.getResponse().getContentAsString(), ResponseObject.class);
-        ObjectReader reader = mapper.readerFor(new TypeReference<List<Note>>() {
-        });
-        List<Note> list = reader.readValue(response.getData());
-
-        Assert.assertEquals(5, list.size());
     }
 }
