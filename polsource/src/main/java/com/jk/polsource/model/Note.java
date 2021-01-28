@@ -3,8 +3,6 @@ package com.jk.polsource.model;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedDate;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -13,16 +11,14 @@ import java.util.UUID;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
-//@Table
 public class Note {
     private int id;
     private String title;
     private String content;
+    //Setting timezone to match database
     @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss", timezone = "CET")
-//    @CreatedDate
     private Date created;
     @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss", timezone = "CET")
-//    @LastModifiedDate
     private Date modified;
     private Boolean isDeleted;
     private Long threadId;

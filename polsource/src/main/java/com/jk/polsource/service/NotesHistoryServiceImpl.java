@@ -22,7 +22,6 @@ public class NotesHistoryServiceImpl implements NotesHistoryService{
     @Override
     public Note findById(int id) {
         return this.notesRepository.getById(id);
-//        return this.notesRepository.findById(id).orElse(null);
     }
 
     @Override

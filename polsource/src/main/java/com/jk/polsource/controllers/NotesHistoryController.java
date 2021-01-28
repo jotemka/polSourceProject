@@ -26,6 +26,7 @@ public class NotesHistoryController extends BaseController {
     @Autowired
     private ObjectMapper mapper;
 
+    //This method gets all notes (deleted included) of a given thread
     @GetMapping(value = "/all-notes-in-thread/{id}")
     public @ResponseBody
     ResponseEntity getAllByThreadId(@PathVariable("id") Long id){

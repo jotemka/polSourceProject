@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
-import java.util.TimeZone;
 
 @RestController
 @CrossOrigin
@@ -28,8 +27,8 @@ public class NotesController extends BaseController {
 
     @Autowired
     private ObjectMapper mapper;
-//    private static ObjectMapper mapper = new ObjectMapper();
 
+    //This method returns all newest notes per thread/history
     @GetMapping(value = "/all-current-notes")
     public @ResponseBody
     ResponseEntity getAllCurrentNotes(){
@@ -37,7 +36,7 @@ public class NotesController extends BaseController {
         try{
             List<Note> notes =this.notesService.getAllCurrent();
 
-            if(CollectionUtils.isEmpty(notes)/* notes.size() == 0 || notes == null*/){
+            if(CollectionUtils.isEmpty(notes)){
                 return new ResponseEntity<>(ResponseObject.createError(Notification.NO_CURRENT_NOTES), HttpStatus.NOT_FOUND);
             }
 
@@ -54,8 +53,6 @@ public class NotesController extends BaseController {
     public ResponseEntity createNote(@Valid @RequestBody NewNote note){
         try{
             Note newlyCreatedNote = new Note(note.getTitle(), note.getContent());
-            System.out.println(newlyCreatedNote.getModified());
-//            this.notesService.save(newlyCreatedNote);
             JsonNode returnData = mapper.valueToTree(this.notesService.save(newlyCreatedNote));
             return new ResponseEntity<>(ResponseObject.createSuccess(Notification.NOTE_CREATED, returnData), HttpStatus.CREATED);
         } catch (Exception e) {
@@ -71,8 +68,6 @@ public class NotesController extends BaseController {
             Note newestVersionNote = this.notesService.getNewestForThread(note.getThreadId());
             Note updatedNote = new Note(note.getTitle(), note.getContent(), note.getCreated(), note.getThreadId(), newestVersionNote.getVersion());
             JsonNode returnData = mapper.valueToTree(this.notesService.save(updatedNote));
-            System.out.println(updatedNote.getModified());
-            System.out.println(TimeZone.getDefault());
 
             return new ResponseEntity<>(ResponseObject.createSuccess(Notification.NOTE_UPDATED, returnData), HttpStatus.OK);
         } catch (Exception e) {
@@ -113,12 +108,13 @@ public class NotesController extends BaseController {
         }
     }
 
+    //getAll method that avoids deleted notes
     @GetMapping(value = "/all")
     public ResponseEntity getAll(){
         try {
-            List<Note> notes =this.notesService.getAll();
+            List<Note> notes = this.notesService.getAll();
 
-            if(CollectionUtils.isEmpty(notes)/* notes.size() == 0 || notes == null*/){
+            if(CollectionUtils.isEmpty(notes)){
                 return new ResponseEntity<>(ResponseObject.createError(Notification.NOTES_NOT_FOUND), HttpStatus.NOT_FOUND);
             }
 
