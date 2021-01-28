@@ -50,4 +50,9 @@ public interface NotesRepository extends CrudRepository<Note, Integer> {
             ") note_b ON note_a.thread_id = note_b.thread_id AND note_a.note_version = note_b.newest\n" +
             "WHERE note_a.thread_id=?1", nativeQuery = true)
     Note findNewestByThreadId(Long id);
+
+    @Query(value = "SELECT note.id, note.thread_id, note.created, note.modified, note.note_title, note.content, note.note_version, note.is_deleted\n" +
+            "FROM note\n" +
+            "WHERE note.id=?1 AND note.is_deleted=0", nativeQuery = true)
+    Note getById(int id);
 }

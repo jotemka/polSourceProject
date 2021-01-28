@@ -16,7 +16,9 @@ import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.sql.Time;
 import java.util.List;
+import java.util.TimeZone;
 
 @RestController
 @CrossOrigin
@@ -54,6 +56,7 @@ public class NotesController extends BaseController {
     public ResponseEntity createNote(@Valid @RequestBody NewNote note){
         try{
             Note newlyCreatedNote = new Note(note.getTitle(), note.getContent());
+            System.out.println(newlyCreatedNote.getModified());
 //            this.notesService.save(newlyCreatedNote);
             JsonNode returnData = mapper.valueToTree(this.notesService.save(newlyCreatedNote));
             return new ResponseEntity<>(ResponseObject.createSuccess(Notification.NOTE_CREATED, returnData), HttpStatus.CREATED);
@@ -70,6 +73,9 @@ public class NotesController extends BaseController {
             Note newestVersionNote = this.notesService.getNewestForThread(note.getThreadId());
             Note updatedNote = new Note(note.getTitle(), note.getContent(), note.getCreated(), note.getThreadId(), newestVersionNote.getVersion());
             JsonNode returnData = mapper.valueToTree(this.notesService.save(updatedNote));
+            System.out.println(updatedNote.getModified());
+            System.out.println(TimeZone.getDefault());
+
             return new ResponseEntity<>(ResponseObject.createSuccess(Notification.NOTE_UPDATED, returnData), HttpStatus.OK);
         } catch (Exception e) {
             e.printStackTrace();
@@ -91,6 +97,21 @@ public class NotesController extends BaseController {
         } catch (Exception e) {
             e.printStackTrace();
             return new ResponseEntity<>(ResponseObject.createError(Notification.NOTE_DELETED_ERROR), HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @GetMapping(value = "/{id}")
+    public ResponseEntity getNote(@PathVariable("id") int id){
+        try {
+            Note note = this.notesService.findById(id);
+            if (ObjectUtils.isEmpty(note)) {
+                return new ResponseEntity<>(ResponseObject.createError(Notification.NOTE_NOT_FOUND), HttpStatus.NOT_FOUND);
+            }
+            JsonNode returnData = mapper.valueToTree(this.notesService.save(note));
+            return new ResponseEntity<>(ResponseObject.createSuccess(Notification.NOTE_FOUND, returnData), HttpStatus.OK);
+        } catch (Exception e){
+            e.printStackTrace();
+            return new ResponseEntity<>(ResponseObject.createError(Notification.NOTE_RETRIEVE_ERROR), HttpStatus.BAD_REQUEST);
         }
     }
 

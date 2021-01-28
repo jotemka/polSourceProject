@@ -14,5 +14,8 @@ public class Notification {
     public static final String NOTE_DELETED = "Note succesfully deleted.";
     public static final String NO_NOTE_HISTORY = "There is no thread like that.";
     public static final String NOTE_HISTORY_SUCCESS = "Succesfully retrieved note history.";
-    public static final String NOTE_HISTORY_ERROR = "Error while retrieving ";
+    public static final String NOTE_HISTORY_ERROR = "Error while retrieving note hitsory.";
+    public static final String NOTE_NOT_FOUND = "Note not found.";
+    public static final String NOTE_FOUND = "Note retrieved.";
+    public static final String NOTE_RETRIEVE_ERROR = "Error while retrieving note.";
 }

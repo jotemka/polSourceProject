@@ -18,10 +18,10 @@ public class Note {
     private int id;
     private String title;
     private String content;
-    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss", timezone = "CET")
 //    @CreatedDate
     private Date created;
-    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss", timezone = "CET")
 //    @LastModifiedDate
     private Date modified;
     private Boolean isDeleted;

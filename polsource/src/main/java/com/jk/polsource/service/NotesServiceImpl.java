@@ -17,7 +17,8 @@ public class NotesServiceImpl implements  NotesService {
 
     @Override
     public Note findById(int id) {
-        return this.notesRepository.findById(id).orElse(null);
+        return this.notesRepository.getById(id);
+//        return this.notesRepository.findById(id).orElse(null);
     }
 
     @Override
