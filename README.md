@@ -41,6 +41,8 @@ Przykładowe użycia:
   - Użytkownik jest przekierowany na listę wersji notatki (od najstarszej do najnowszej)
   - Użytkownik może usuwać wersje notatki (jeśli wersja jest już usunięta, przycisk "Delete" jest nieaktywny)
   
-  UWAGA:
-  Program jest skonfigurowany tak, aby przy każdym uruchomieniu backendu baza notatek była inicjalizowana od nowa. Aby zachować notatki między kolejnymi uruchomieniami, w pliku "application.properties" należy zakomentować linię 5 z użyciem znaku #: 
-  spring.datasource.initialization-mode=always
+UWAGA:
+  - Program jest skonfigurowany tak, aby przy każdym uruchomieniu backendu baza notatek była inicjalizowana od nowa. Aby zachować notatki między kolejnymi uruchomieniami, w pliku "application.properties" należy zakomentować linię 5 z użyciem znaku #: 
+            `spring.datasource.initialization-mode=always`
+  - Aby uruchomić wszystkie testy jednocześnie należy utworzyć w IntelliJ konfigurację uruchomienia JUnit z parametrami VM:
+            `-ea -Dspring.profiles.active=test`
