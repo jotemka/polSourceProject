@@ -55,4 +55,9 @@ public interface NotesRepository extends CrudRepository<Note, Integer> {
             "FROM note\n" +
             "WHERE note.id=?1 AND note.is_deleted=0", nativeQuery = true)
     Note getById(int id);
+
+    @Query(value = "SELECT note.id, note.thread_id, note.created, note.modified, note.note_title, note.content, note.note_version, note.is_deleted\n" +
+            "FROM note\n" +
+            "WHERE note.is_deleted=0", nativeQuery = true)
+    List<Note> getAll();
 }

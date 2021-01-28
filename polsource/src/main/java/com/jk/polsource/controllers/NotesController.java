@@ -6,7 +6,6 @@ import com.jk.polsource.dto.NewNote;
 import com.jk.polsource.model.Note;
 import com.jk.polsource.model.ResponseObject;
 import com.jk.polsource.notifications.Notification;
-import com.jk.polsource.service.NotesService;
 import com.jk.polsource.service.NotesServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -16,7 +15,6 @@ import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.sql.Time;
 import java.util.List;
 import java.util.TimeZone;
 
@@ -37,7 +35,7 @@ public class NotesController extends BaseController {
     ResponseEntity getAllCurrentNotes(){
 
         try{
-            List<Note> notes =this.notesService.getAll();
+            List<Note> notes =this.notesService.getAllCurrent();
 
             if(CollectionUtils.isEmpty(notes)/* notes.size() == 0 || notes == null*/){
                 return new ResponseEntity<>(ResponseObject.createError(Notification.NO_CURRENT_NOTES), HttpStatus.NOT_FOUND);
@@ -112,6 +110,23 @@ public class NotesController extends BaseController {
         } catch (Exception e){
             e.printStackTrace();
             return new ResponseEntity<>(ResponseObject.createError(Notification.NOTE_RETRIEVE_ERROR), HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @GetMapping(value = "/all")
+    public ResponseEntity getAll(){
+        try {
+            List<Note> notes =this.notesService.getAll();
+
+            if(CollectionUtils.isEmpty(notes)/* notes.size() == 0 || notes == null*/){
+                return new ResponseEntity<>(ResponseObject.createError(Notification.NOTES_NOT_FOUND), HttpStatus.NOT_FOUND);
+            }
+
+            JsonNode returnData = mapper.valueToTree(notes);
+            return new ResponseEntity<>(ResponseObject.createSuccess(Notification.ALL_NOTE_GET_SUCCESS, returnData), HttpStatus.OK);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity<>(ResponseObject.createError(Notification.ALL_NOTE_GET_ERROR), HttpStatus.BAD_REQUEST);
         }
     }
 

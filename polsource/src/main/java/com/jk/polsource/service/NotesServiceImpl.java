@@ -22,7 +22,7 @@ public class NotesServiceImpl implements  NotesService {
     }
 
     @Override
-    public List<Note> getAll() {
+    public List<Note> getAllCurrent() {
 //        List<Note> allNotes = this.notesRepository.findAllByIsDeletedFalse();
 //        //filter here
 //        List<Note> currentNotes = new ArrayList<Note>();
@@ -37,6 +37,12 @@ public class NotesServiceImpl implements  NotesService {
 
 //        List<Note> notes = this.notesRepository.findAllNewestUndeletedNotes();
         return currentNotes;
+    }
+
+    @Override
+    public List<Note> getAll() {
+        List<Note> allNonDeletedNotes = this.notesRepository.getAll();
+        return allNonDeletedNotes;
     }
 
     @Override

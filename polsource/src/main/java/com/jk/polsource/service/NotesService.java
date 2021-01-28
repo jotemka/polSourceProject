@@ -6,6 +6,7 @@ import java.util.List;
 
 public interface NotesService {
     Note findById(int id);
+    List<Note> getAllCurrent();
     List<Note> getAll();
     Note getNewestForThread(Long id);
     Note save(Note note);

@@ -18,4 +18,7 @@ public class Notification {
     public static final String NOTE_NOT_FOUND = "Note not found.";
     public static final String NOTE_FOUND = "Note retrieved.";
     public static final String NOTE_RETRIEVE_ERROR = "Error while retrieving note.";
+    public static final String NOTES_NOT_FOUND = "Notes not found";
+    public static final String ALL_NOTE_GET_SUCCESS = "All notes succesfully retrieved.";
+    public static final String ALL_NOTE_GET_ERROR = "Error while retrieving all notes.";
 }
