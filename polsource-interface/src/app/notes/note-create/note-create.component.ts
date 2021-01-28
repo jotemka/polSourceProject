@@ -1,6 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { NgbAlert } from '@ng-bootstrap/ng-bootstrap';
+import { Subject } from 'rxjs';
+import { debounceTime } from 'rxjs/operators';
 import { NotesService } from '../services/notes.service';
 import { NewNote } from '../shared/new-note.model';
 
@@ -12,7 +15,6 @@ import { NewNote } from '../shared/new-note.model';
 export class NoteCreateComponent implements OnInit {
   
   public maxLength: number = 500;
-
   
   public newNote: NewNote = new NewNote();
   public charactersLeft!: number;
