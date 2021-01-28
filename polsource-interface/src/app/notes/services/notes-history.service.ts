@@ -16,10 +16,7 @@ export class NotesHistoryService {
     this.rootUrl = 'http://localhost:8080/notes-history';
   }
 
-  // getAllNotesInThread(threadId: string){
-  //   return this.http.get(this.rootUrl + '/all-notes-in-thread/' + threadId);
-  // }
-
+  // Getting NoteAPIResponse for easier extraction of data from ResponseObject sent from backend
   getAllNotesInThread(threadId: string): Observable<Note[]>{
     return this.http.get<NoteAPIResponse>(this.rootUrl + '/all-notes-in-thread/' + threadId).pipe(map(res => res.data));
   }

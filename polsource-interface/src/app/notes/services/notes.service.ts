@@ -13,7 +13,6 @@ import { SingleNoteAPIResponse } from '../shared/single-note-apiresponse';
 export class NotesService {
 
   rootUrl: string;
-  // header: HttpHeaders = {};
 
   constructor(private http: HttpClient) { 
     this.rootUrl = 'http://localhost:8080/notes';
@@ -23,6 +22,7 @@ export class NotesService {
     return this.http.post(this.rootUrl+ '/new-note', newNote, { observe: 'response'});
   }
 
+  // Getting NoteAPIResponse for easier extraction of data from ResponseObject sent from backend
   getAllCurrentNotes(): Observable<Note[]>{
     return this.http.get<NoteAPIResponse>(this.rootUrl + '/all-current-notes').pipe(map(res => res.data));
   }
@@ -35,13 +35,8 @@ export class NotesService {
     return this.http.delete(this.rootUrl + '/' + id, {observe: 'response'});
   }
 
-  // getNote(id: number){
-  //   return this.http.get(this.rootUrl + '/' + id, {observe: 'response'});
-  // }
-
+  // Getting SingleNoteAPIResponse for easier extraction of data from ResponseObject sent from backend
   getNote(id: number): Observable<Note>{
-    console.log("HHHHHHHH");
-    
     return this.http.get<SingleNoteAPIResponse>(this.rootUrl + '/' + id).pipe(map(res => res.data));
   }
 }

@@ -1,6 +1,5 @@
-<p>note-edit works!</p>
-
-<div class="controls col-xl-3 offset-xl-1">
+<div class="controls col-xl-3 offset-xl-1 mt-3">
+  <ngb-alert #selfCloseAlert *ngIf="alertMessage" type="danger" (closed)="alertMessage = ''">{{ alertMessage }}</ngb-alert>
   <form [formGroup]="editNoteForm" (ngSubmit)="onSubmit()" novalidate>
     <div class="form-group">
       <label for="noteTitle">Note title:</label>
@@ -18,9 +17,7 @@
       </div>
       <div *ngIf="!content!.errors && charactersLeft>0" class="">{{ charactersLeft }} characters left</div>
       <div *ngIf="charactersLeft == 0" class="text-danger">
-        <!-- {{ content.errors|json }} -->
         {{ charactersLeft }} characters left 
-        <!-- <div *ngIf="title.errors.maxLength.actualLength > title.errors.maxLength.requiredLength" class="text-danger">Cannot have more than 500 characters</div> -->
       </div>
       <br>
     </div>
@@ -30,13 +27,3 @@
     </div>
   </form>
 </div>
-
-
-
-<!-- <div *ngIf="(editedNoteObservable | async) as testing; else testingError">
-  {{testing.title}}
-</div>
-
-<ng-template #testingError>
-  AAAAAAAAAAAA
-</ng-template> -->

@@ -14,18 +14,14 @@ import { NotesModule } from './notes/notes.module';
 
 @NgModule({
   declarations: [
-    AppComponent,
-    // NoteListComponent,
-    // NoteCreateComponent
+    AppComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
     NgbModule,
-    NotesModule,
-    // FormsModule,
-    // ReactiveFormsModule
+    NotesModule
   ],
   providers: [
     NotesService,

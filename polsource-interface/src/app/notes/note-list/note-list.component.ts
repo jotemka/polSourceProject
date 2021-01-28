@@ -7,6 +7,7 @@ import { NotesService } from 'src/app/notes/services/notes.service';
 import { NoteReadComponent } from '../note-read/note-read.component';
 import { Note } from '../shared/note.model';
 
+// Column sort section
 export type SortColumn = keyof Note | '';
 export type SortDirection = 'asc' | 'desc';
 const rotate: {[key: string]: SortDirection} = {
@@ -40,7 +41,7 @@ export class SortableHeader {
     this.sort.emit({column: this.sortable, direction: this.direction});
   }
 }
-
+// End of column sort section
 
 @Component({
   selector: 'app-note-list',
@@ -57,15 +58,12 @@ export class NoteListComponent implements OnInit {
 
   public currentNotes!: Note[];
   // public currentNotes!: Observable<Note[]>;
-  // public currentNotes: Array<Note> = new Array<Note>();
 
   constructor(private router: Router,
               private modalService: NgbModal,
               private notesService: NotesService) { }
 
   ngOnInit(): void {
-    // this.getAllCurrentNotes();
-    // this.currentNotes = this.notesService.getAllCurrentNotes();
     this.notesService.getAllCurrentNotes().subscribe(
       data => {
         this.currentNotes = data;
@@ -96,7 +94,6 @@ export class NoteListComponent implements OnInit {
     this.notesService.deleteNote(note.id).subscribe(
       response => {
         this.changeAlertMessageDelete(note);
-        // this.currentNotes = this.notesService.getAllCurrentNotes();
         this.notesService.getAllCurrentNotes().subscribe(
           data => {
             this.currentNotes = data;
@@ -111,43 +108,14 @@ export class NoteListComponent implements OnInit {
 
   onSort({column, direction}: SortEvent){
     
-    
-    // this.headers.forEach(header => {
-    //   if(header.sortable !== column) {
-    //     // header.direction = ''; tu nie moge tego zrobic bo nie mam neutralnego kierunku
-    //     console.log("costam");
-        
-    //   }
-    // });
-
     if(column === '') {
       // tu by bylo przypisanie z consta 
-      console.log("hehe");
     } else {
-      console.log("xaxa")
-      // this.currentNotes.subscribe(
-      //   data => {
-      //     [...data].sort((a,b) => {
-      //       const res = compare(a[column], b[column]);
-      //       return direction === 'asc' ? res : -res;
-      //     })
-      //   }
-      // )
       this.currentNotes = [...this.currentNotes].sort((a, b) => {
         const res = compare(a[column], b[column]);
         return direction === 'asc' ? res : -res;
       })
     }
   }
-
-  // getAllCurrentNotes() {
-  //   this.notesService.getAllCurrentNotes().subscribe(
-  //     data => {
-  //       this.currentNotes = data;
-  //     },
-  //     error => {
-  //       console.log("something went wrong");        
-  //     });
-  // }
 
 }

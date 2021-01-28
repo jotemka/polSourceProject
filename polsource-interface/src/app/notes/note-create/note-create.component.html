@@ -1,15 +1,10 @@
-<p>note-create works!</p>
 
-<!-- <label>
-  Name:
-  <input type="text" [formControl]="name">
-</label>  
-  -->
-<div class="controls col-xl-3 offset-xl-1">
+<div class="controls col-xl-3 offset-xl-1 mt-3">
+  <ngb-alert #selfCloseAlert *ngIf="alertMessage" type="danger" (closed)="alertMessage = ''">{{ alertMessage }}</ngb-alert>
   <form [formGroup]="newNoteForm" (ngSubmit)="onSubmit()" novalidate>
     <div class="form-group">
       <label for="noteTitle">Note title:</label>
-      <input type="text" formControlName="title" id="noteTitle" class="form-control" required>
+      <input type="text" formControlName="title" id="noteTitle" class="form-control">
       <div *ngIf="title!.errors">
         <div *ngIf="title!.errors.required" class="text-danger">Title is required</div>
       </div> 
@@ -23,9 +18,7 @@
       </div>
       <div *ngIf="!content!.errors && charactersLeft>0" class="">{{ charactersLeft }} characters left</div>
       <div *ngIf="charactersLeft == 0" class="text-danger">
-        <!-- {{ content.errors|json }} -->
         {{ charactersLeft }} characters left 
-        <!-- <div *ngIf="title.errors.maxLength.actualLength > title.errors.maxLength.requiredLength" class="text-danger">Cannot have more than 500 characters</div> -->
       </div>
       <br>
     </div>

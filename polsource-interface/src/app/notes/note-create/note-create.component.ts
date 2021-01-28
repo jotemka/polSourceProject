@@ -14,6 +14,10 @@ import { NewNote } from '../shared/new-note.model';
 })
 export class NoteCreateComponent implements OnInit {
   
+  private alertSubject = new Subject<string>();
+  public alertMessage = '';
+  @ViewChild('selfCloseAlert', {static: false}) selfCloseAlert!: NgbAlert;
+
   public maxLength: number = 500;
   
   public newNote: NewNote = new NewNote();
@@ -25,11 +29,8 @@ export class NoteCreateComponent implements OnInit {
     ]),
     content: new FormControl('', [
       Validators.required
-      // Validators.maxLength(500)
     ])
   });
-
-  // name = new FormControl('');
 
   constructor(private router: Router,
               private notesService: NotesService) { }
@@ -38,20 +39,30 @@ export class NoteCreateComponent implements OnInit {
     this.newNoteForm.get('content')?.valueChanges.subscribe(val => {
       this.charactersLeft = this.maxLength - val.length
     })
+    this.alertSubject.subscribe(message => this.alertMessage = message);
+    this.alertSubject.pipe(debounceTime(5000)).subscribe(() => {
+      if(this.selfCloseAlert){
+        this.selfCloseAlert.close();
+      }
+    });
+    
+  }
+
+  public changeAlertMessage(message: string) { 
+    this.alertSubject.next(message);
   }
 
   onSubmit(){
-    console.log("in submit method");
+    // taking values from form
     this.newNote.title = this.newNoteForm.get('title')?.value;
-    console.log(this.newNote.title);
     this.newNote.content = this.newNoteForm.get('content')?.value;
-    console.log(this.newNote.content);
     this.notesService.createNote(this.newNote).subscribe(
       response => {
         this.router.navigate(['/current-notes']);
       },
       error => {
-        alert("Something went wrong.");
+        // alert("Something went wrong.");
+        this.changeAlertMessage("Something went wrong.");
       }
     )
   }

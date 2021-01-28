@@ -46,12 +46,6 @@ export class NoteHistoryComponent implements OnInit {
     this.notesHistoryService.deleteNote(note.id).subscribe(
       response => {
         this.changeAlertMessageDelete(note);
-        // // this.currentNotes = this.notesService.getAllCurrentNotes();
-        // this.notesHistoryService.getAllCurrentNotes().subscribe(
-        //   data => {
-        //     this.currentNotes = data;
-        //   }
-        // );
         this.historyNotes = this.notesHistoryService.getAllNotesInThread(String(this.route.snapshot.paramMap.get('id')));
       },
       error => {
